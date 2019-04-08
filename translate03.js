@@ -73,8 +73,10 @@ async function read_rules(filename) {
   // let rawdata = ""
   hidden = document.getElementById('x')
   if (hidden.value.length == 0 || filename != "") {
+    // Existing Rules:
     rawdata = await get(filename);
   } else {
+    // Upload Rules:
     rawdata = hidden.value
   }
   console.log(rawdata)

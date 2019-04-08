@@ -28,6 +28,7 @@
         document.getElementById("leftbutton").style.background = "grey";
         document.getElementById("rightbutton").style.cursor = "pointer";
         document.getElementById("rightbutton").style.background = "black";
+        read_existing()
       }
       function upload() {
         // alert("upload")
@@ -38,6 +39,7 @@
         document.getElementById("leftbutton").style.background = "black";
         document.getElementById("rightbutton").style.cursor = "default";
         document.getElementById("rightbutton").style.background = "grey";
+        read_upload()
       }
     </script>
     <div id="main">
@@ -96,12 +98,14 @@
         });
       }
       function read_upload() {
-        a = document.getElementById('upload_form').files[0]
-        parse(a).then(s => {
-          hidden = document.getElementById('x')
-          hidden.value = s.join('\n')
-          grammar = new AlphabetToIpa("");
-        })
+        a = document.getElementById('upload_form').files
+        if (a.length > 0) {
+          parse(a[0]).then(s => {
+            hidden = document.getElementById('x')
+            hidden.value = s.join('\n')
+            grammar = new AlphabetToIpa("");
+          })
+        }
       }
       function read_existing() {
         a = document.getElementById("rule_dropdown").value
@@ -109,7 +113,13 @@
       }
       // read_upload.then((reader))
       function submit() {
-        translate();
+        if (document.getElementById("existing").style.display == "none" 
+          && document.getElementById('x').value.length == 0) {
+          // If upload, then ensure file exists:
+          alert("Something went wrong. Did you forget to upload a rules file?")
+        } else {
+          translate();
+        }
       }
 
       // Get the input field
