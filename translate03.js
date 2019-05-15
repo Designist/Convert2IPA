@@ -120,7 +120,10 @@ class SubRule {
 	for (var i=0; i<headers.length; i++) {
 	    let key = headers[i]
 	    let value = rule[key]//.replace("\\", "$1")
-      value = value.replaceAll(/\\([1-9])/, "@$1").replaceAll("@", "$")
+      if (key == "sto") {
+        value = value.replaceAll(/\\([1-9])/, "@$1").replaceAll("@", "$")
+      }
+      
       // value = RegExp(value)
 	    const re = new RegExp('{.*}')
 	    // Handles classes and subclasses
@@ -183,7 +186,7 @@ class AlphabetToIpa {
     	    } else if (rule["type"] == "ipasub") {
     		let ipasubrule = new SubRule(rule, this.classes)
 		ipasubrule.sfrom = new RegExp(ipasubrule.sfrom, "g");
-		ipasubrule.sto = ipasubrule.sto.replace(/\\([1-9])/, "$$1");
+		// ipasubrule.sto = ipasubrule.sto.replace(/\\([1-9])/, "$$1");
     		this.ipasubs.add(ipasubrule)
     	    } else if (rule["type"] == "word") {
     		this.words[rule["sfrom"]] = rule["sto"].split()
