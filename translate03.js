@@ -10,6 +10,12 @@
 // 	console.log(data);
 // })
 
+String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
+
 function print(val) { console.log(val) }
 
 function dictFormat(s, valueDict) {
@@ -113,7 +119,9 @@ class SubRule {
 	const headers = ["sfrom", "sto", "precede", "follow", "weight"]
 	for (var i=0; i<headers.length; i++) {
 	    let key = headers[i]
-	    let value = rule[key]
+	    let value = rule[key]//.replace("\\", "$1")
+      value = value.replaceAll(/\\([1-9])/, "@$1").replaceAll("@", "$")
+      // value = RegExp(value)
 	    const re = new RegExp('{.*}')
 	    // Handles classes and subclasses
 	    while (re.test(value)) {
@@ -141,7 +149,7 @@ class SubRule {
     }
     
     sub(x) {
-        return x.replace(this.sfrom_save, this.sto)
+        return x.replace(this.sfrom, this.sto)
     }
 }
 
