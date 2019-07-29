@@ -2,7 +2,7 @@
 Approximate conversion from orthography to IPA.
 
 Conversion process requires a `.rules` file.
-We provide example files for Spanish and Maltese.
+We provide example files for Spanish, Maltese, and Korean.
 
 To view this site locally, we recommend using [Python's SimpleHTTPServer](https://docs.python.org/2/library/simplehttpserver.html). Run the following command from the Convert2IPA directory:
 ```
